@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>壽星的獎池 🎈</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🎉 壽星專屬抽獎遊戲 🎉</h1>
+        <div class="menu-buttons">
+            <button class="menu-btn active" data-target="wheel-section">1. 轉盤</button>
+            <button class="menu-btn" data-target="gachapon-section">2. 扭蛋機</button>
+            <button class="menu-btn" data-target="lottery-section">3. 抽籤盒</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- 模式一：幸運大轉盤 -->
+        <section id="wheel-section" class="game-section active">
+            <h2>轉盤</h2>
+            <p>找出神祕獎勵</p>
+            <div class="wheel-container">
+                <div class="wheel-pointer">▼</div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-item" style="--i:0;"><span>?</span></div>
+                    <div class="wheel-item" style="--i:1;"><span>?</span></div>
+                    <div class="wheel-item" style="--i:2;"><span>?</span></div>
+                    <div class="wheel-item" style="--i:3;"><span>?</span></div>
+                    <div class="wheel-item" style="--i:4;"><span>?</span></div>
+                    <div class="wheel-item" style="--i:5;"><span>?</span></div>
+                </div>
+            </div>
+            <button id="spin-btn" class="action-btn">開始轉動</button>
+        </section>
+
+        <!-- 模式二：扭蛋開球 -->
+        <section id="gachapon-section" class="game-section">
+            <h2>扭蛋機</h2>
+            <p>扭出彩球，打開驚喜</p>
+            <div class="gacha-machine">
+                <div class="glass-globe" id="glass-globe">
+                    <!-- 動態生成彩球 -->
+                </div>
+                <div class="drop-chute">
+                    <div class="chute-cover" id="chute-cover">?</div>
+                </div>
+            </div>
+            <button id="gacha-btn" class="action-btn">扭出驚喜球</button>
+        </section>
+
+        <!-- 模式三：搖盒抽籤 -->
+        <section id="lottery-section" class="game-section">
+            <h2>抽籤盒</h2>
+            <p>搖晃籤筒，抽出幸運籤詩</p>
+            <div class="lottery-area">
+                <div class="lottery-box" id="lottery-box">
+                    <div class="inner-sticks">
+                        <div class="inner-stick" style="transform: rotate(-5deg);"></div>
+                        <div class="inner-stick" style="transform: rotate(5deg);"></div>
+                        <div class="inner-stick" style="transform: rotate(-5deg);"></div>
+                    </div>
+                </div>
+                <div class="drawn-stick-container">
+                    <div class="drawn-stick" id="drawn-stick">
+                        <span style="font-size: 0.8rem;">🌸</span>
+                        <span class="stick-text" id="stick-text">大吉</span>
+                        <span style="font-size: 0.8rem;">🌸</span>
+                    </div>
+                </div>
+            </div>
+            <button id="lottery-btn" class="action-btn">開始抽籤！</button>
+        </section>
+    </main>
+
+    <!-- 彈出視窗 Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-card">
+            <h3 class="modal-title" id="modal-title">抽籤結果</h3>
+            <div class="modal-ball" id="modal-ball">吉</div>
+            <p class="modal-desc" id="modal-desc">詳細內容預設顯示處</p>
+            <button class="close-btn" id="modal-close-btn">確定收下</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
