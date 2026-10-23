@@ -1,0 +1,448 @@
+/* ==========================================
+   0. 全域通用設定 (Reset)
+   ========================================== */
+* {
+    box-sizing: border-box; /* 讓所有元素的寬高計算包含邊框(border)與內距(padding)，避免版面變寬 */
+    margin: 0;              /* 清除瀏覽器預設的元素外距 */
+    padding: 0;             /* 清除瀏覽器預設的元素內距 */
+}
+
+/* ==========================================
+   1. 網頁主體背景與排版設定 (Body)
+   ========================================== */
+body {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif; /* 設定全站預設字體為微軟正黑體 */
+    background: linear-gradient(135deg, #0f0c20, #1d1a3a, #2a1b40); /* 網頁背景：深色系斜向漸層（營造派對科技感） */
+    color: #ffffff;                                           /* 全站預設文字顏色為白色 */
+    min-height: 100vh;                                        /* 最小高度佔滿整個視窗高度 (100% Viewport Height) */
+    display: flex;                                            /* 使用 Flexbox 彈性盒模型進行排版 */
+    flex-direction: column;                                   /* 子元素改為垂直方向排列 */
+    align-items: center;                                      /* 子元素水平置中對齊 */
+    padding: 20px;                                            /* 網頁四周保留 20px 的內距空間 */
+}
+
+/* ==========================================
+   2. 頂部標題區塊設定 (Header)
+   ========================================== */
+header {
+    text-align: center; /* 標題與選單按鈕置中 */
+    margin-bottom: 25px; /* 頂部區塊下方的外距 */
+}
+
+header h1 {
+    font-size: 2rem;                    /* 主標題字體大小 */
+    margin-bottom: 15px;                /* 主標題與按鈕群組的距離 */
+    color: #ffd166;                     /* 主標題文字顏色：亮金黃色 */
+    text-shadow: 0 0 10px rgba(255, 209, 102, 0.5); /* 文字外圍的光暈陰影效果 */
+}
+
+/* ==========================================
+   3. 模式切換按鈕群組設定
+   ========================================== */
+.menu-buttons {
+    display: flex;           /* 讓按鈕群組水平並排 */
+    gap: 12px;               /* 按鈕與按鈕之間的間距 */
+    justify-content: center; /* 按鈕群組置中對齊 */
+    flex-wrap: wrap;         /* 當螢幕太小時允許按鈕自動換行 */
+}
+
+.menu-btn {
+    padding: 10px 20px;                         /* 按鈕內距：上下10px、左右20px */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* 具有半透明白邊的邊框 */
+    border-radius: 25px;                        /* 圓角按鈕（藥丸形狀） */
+    background: rgba(255, 255, 255, 0.08);      /* 半透明的深色毛玻璃背景 */
+    color: #fff;                                /* 按鈕文字顏色：白色 */
+    font-size: 0.95rem;                         /* 字體大小 */
+    font-weight: bold;                          /* 文字粗體 */
+    cursor: pointer;                            /* 滑鼠游標移上去時變成手指指標 */
+    transition: all 0.3s ease;                  /* 所有樣式變化的過渡動畫時間 0.3 秒 */
+    backdrop-filter: blur(5px);                 /* 背景毛玻璃模糊效果 */
+}
+
+/* 切換按鈕被選中 (.active) 或滑鼠懸停 (:hover) 時的樣式 */
+.menu-btn.active, .menu-btn:hover {
+    background: #ff6b6b;                        /* 背景色改為亮粉紅色 */
+    border-color: #ff6b6b;                      /* 邊框顏色同步改為粉紅色 */
+    transform: translateY(-2px);                /* 輕微往上浮起 2px */
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4); /* 按鈕底部的粉紅光暈陰影 */
+}
+
+/* ==========================================
+   4. 主要遊戲區域外框容器 (Main)
+   ========================================== */
+main {
+    width: 100%;                                /* 寬度佔滿 */
+    max-width: 480px;                           /* 最大寬度限制在 480px，保持手機/精緻卡片尺寸 */
+    background: rgba(255, 255, 255, 0.05);      /* 极淡的半透明背景 */
+    backdrop-filter: blur(15px);                /* 強烈的毛玻璃模糊特效 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 極細的半透明白邊框 */
+    border-radius: 24px;                        /* 大卡片圓角設定 */
+    padding: 30px 20px;                         /* 卡片內部上下30px、左右20px內距 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 卡片底部的深色立體陰影 */
+    position: relative;                         /* 定位基準點 */
+}
+
+/* ==========================================
+   5. 遊戲區塊通用樣式 (Game Section)
+   ========================================== */
+.game-section {
+    display: none;              /* 預設隱藏所有遊戲區塊 */
+    flex-direction: column;     /* 內部元素垂直排列 */
+    align-items: center;        /* 水平置中 */
+    text-align: center;         /* 文字置中 */
+}
+
+.game-section.active {
+    display: flex;              /* 當擁有 .active 時顯示該遊戲區塊 */
+}
+
+.game-section h2 {
+    margin-bottom: 8px;         /* 遊戲標題下方外距 */
+    color: #ffd166;             /* 遊戲標題顏色：金色 */
+    font-size: 1.5rem;          /* 遊戲標題字體大小 */
+}
+
+.game-section p {
+    margin-bottom: 25px;        /* 說明文字下方的外距 */
+    font-size: 0.9rem;          /* 說明文字大小 */
+    opacity: 0.8;               /* 說明文字透明度（帶點微弱感） */
+    line-height: 1.4;           /* 行高間距 */
+}
+
+/* ==========================================
+   6. 遊戲通用動作按鈕樣式 (Action Button)
+   ========================================== */
+.action-btn {
+    margin-top: 25px;                           /* 按鈕上方與上方元素的距離 */
+    padding: 12px 35px;                         /* 按鈕內距 */
+    font-size: 1.1rem;                          /* 按鈕文字大小 */
+    font-weight: bold;                          /* 按鈕文字粗體 */
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53); /* 按鈕漸層色：粉紅到橘色 */
+    border: none;                               /* 移除預設邊框 */
+    border-radius: 30px;                        /* 圓角藥丸按鈕 */
+    color: #fff;                                /* 文字白色 */
+    cursor: pointer;                            /* 滑鼠指標改為手指 */
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); /* 按鈕陰影 */
+    transition: all 0.2s ease;                  /* 過渡動畫 0.2 秒 */
+}
+
+.action-btn:hover:not(:disabled) {
+    transform: scale(1.05);                     /* 滑鼠懸停時按鈕輕微放大 5% */
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6); /* 陰影範圍擴大 */
+}
+
+.action-btn:disabled {
+    opacity: 0.5;                               /* 當按鈕被禁用時降低透明度 */
+    cursor: not-allowed;                        /* 滑鼠指標改為禁止符號 */
+}
+
+/* ==========================================
+   7. 模式一：幸運大轉盤 (Wheel Game) 視覺樣式
+   ========================================== */
+.wheel-container {
+    position: relative;                         /* 子元素可藉此進行絕對定位 */
+    width: 260px;                               /* 轉盤外框寬度 */
+    height: 260px;                              /* 轉盤外框高度 */
+    margin: 10px auto;                          /* 上下10px，左右置中 */
+}
+
+.wheel {
+    width: 100%;                                /* 佔滿容器寬度 */
+    height: 100%;                               /* 佔滿容器高度 */
+    border-radius: 50%;                         /* 設為 50% 呈現正圓形 */
+    border: 6px solid #ffd166;                  /* 轉盤外圍金色實心框厚度與顏色 */
+    position: relative;
+    overflow: hidden;                           /* 隱藏超出圓形範圍的內容 */
+   transition: transform 4s cubic-bezier(0.1, 0.7, 0.1, 1); /* 轉動動畫：4秒貝塞爾曲線（快起慢停） */
+    
+    /* 利用圓錐漸層 (conic-gradient) 將轉盤平均切成 6 個區塊 (每塊 60 度) */
+    background: conic-gradient(
+        #ff4d4d 0deg 60deg,     /* 區塊 1：紅色 */
+        #ffca28 60deg 120deg,   /* 區塊 2：黃色 */
+        #42a5f5 120deg 180deg,  /* 區塊 3：藍色 */
+        #ab47bc 180deg 240deg,  /* 區塊 4：紫色 */
+        #26a69a 240deg 300deg,  /* 區塊 5：綠色 */
+        #ffa726 300deg 360deg   /* 區塊 6：橘色 */
+    );
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);    /* 轉盤周圍的黑影立體感 */
+    transform: rotate(0deg);      /* 初始化旋轉角度 */
+}
+
+.wheel-item {
+    position: absolute;
+    width: 50%;                                 /* 寬度為半徑 */
+    height: 50%;                                /* 高度為半徑 */
+    transform-origin: 100% 100%;                /* 以右下角（即圓心）作為旋轉軸心 */
+    transform: rotate(calc(var(--i) * 60deg));  /* 根據變數 --i (0~5) 計算各自旋轉的角度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;                         /* 扇形文字大小 */
+    font-weight: bold;                          /* 文字加粗 */
+    color: #ffffff;                             /* 文字白色 */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);   /* 文字黑邊陰影，增加清晰度 */
+}
+
+.wheel-item span {
+    transform: translate(25px); /* 順時針轉30度對齊扇形中心，並向外推 25px */
+    white-space: nowrap;                        /* 強制文字不換行 */
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -15px;                                 /* 讓指針向上凸出轉盤外緣 */
+    left: 50%;                                  /* 水平置中 */
+    transform: translateX(-50%);                /* 修正自身寬度的一半以達精準置中 */
+    font-size: 2.2rem;                          /* 指針箭頭大小 */
+    color: #ffd166;                             /* 指針金色 */
+    z-index: 10;                                /* 確保指針永遠在轉盤最上層 */
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5)); /* 指針陰影 */
+}
+
+/* ==========================================
+   8. 模式二：扭蛋機開球樣式 (Gachapon Game)
+   ========================================== */
+.gacha-machine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.glass-globe {
+    width: 200px;                               /* 透明扭蛋球體寬度 */
+    height: 200px;                              /* 透明扭蛋球體高度 */
+    border: 6px solid rgba(255,255,255,0.8);    /* 透明球體外框：厚白邊 */
+    border-radius: 50%;                         /* 圓形球體 */
+    background: rgba(255,255,255,0.08);         /* 球體內部透光玻璃感背景 */
+    position: relative;
+    overflow: hidden;                           /* 限制內部小球不跑出球體外 */
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.2), 0 10px 20px rgba(0,0,0,0.4); /* 內發光與外陰影 */
+}
+
+.ball {
+    position: absolute;
+    width: 36px;                                /* 扭蛋小球寬度 */
+    height: 36px;                               /* 扭蛋小球高度 */
+    border-radius: 50%;                         /* 設為圓形 */
+    box-shadow: inset -3px -3px 6px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.3); /* 立體球形光影陰影 */
+    transition: all 0.3s ease;                  /* 移動時的過渡動畫 */
+}
+
+.drop-chute {
+    width: 90px;                                /* 掉球出口槽寬度 */
+    height: 50px;                               /* 掉球出口槽高度 */
+    background: #2a2240;                        /* 出口槽深色背景 */
+    border: 3px solid rgba(255,255,255,0.3);    /* 出口槽邊框 */
+    border-top: none;                           /* 頂部無邊框（與透明球體連接） */
+    border-radius: 0 0 25px 25px;               /* 底部圓角 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5px;                           /* 往上稍微貼齊透明球體底部 */
+    position: relative;
+    z-index: 2;
+}
+
+.chute-cover {
+    width: 42px;                                /* 出口遮蓋圓圈寬度 */
+    height: 42px;                               /* 出口遮蓋圓圈高度 */
+    background: #3a3258;                        /* 預設遮蓋背景色 */
+    border-radius: 50%;                         /* 圓形 */
+    color: #ffd166;                             /* 文字/問號顏色：金色 */
+    font-size: 1.4rem;                          /* 文字大小 */
+    font-weight: bold;                          /* 文字粗體 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ffd166;                 /* 金色虛線邊框（帶神祕感） */
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);      /* 立體陰影 */
+}
+
+/* ==========================================
+   9. 模式三：搖盒抽籤樣式 (Lottery Game)
+   ========================================== */
+.lottery-area {
+    display: flex;
+    align-items: flex-end;                      /* 底部對齊 */
+    justify-content: center;
+    gap: 30px;                                  /* 籤筒與抽出的籤之間的距離 */
+    height: 200px;
+    width: 100%;
+    position: relative;
+}
+
+.lottery-box {
+    width: 110px;                               /* 籤筒寬度 */
+    height: 160px;                              /* 籤筒高度 */
+    background: linear-gradient(135deg, #c0392b, #962d22); /* 籤筒漸層紅棕色 */
+    border: 3px solid #f39c12;                  /* 籤筒金邊框 */
+    border-radius: 12px 12px 6px 6px;           /* 籤筒圓角（上寬下窄感） */
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);    /* 籤筒陰影 */
+    display: flex;
+    justify-content: center;
+}
+
+/* 當點擊抽籤時觸發的搖晃動畫類別 (.shake) */
+.lottery-box.shake {
+    animation: shake 0.45s infinite;            /* 0.45秒無限循環搖晃 */
+}
+
+/* 籤筒搖晃的關鍵影格動畫 (Keyframes) */
+@keyframes shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-5px, -5px) rotate(-6deg); }
+    50% { transform: translate(5px, 0) rotate(6deg); }
+    75% { transform: translate(-5px, 5px) rotate(-3deg); }
+    100% { transform: translate(5px, -2px) rotate(3deg); }
+}
+
+.inner-sticks {
+    position: absolute;
+    top: -15px;                                 /* 露出籤筒上方的木籤頭 */
+    width: 80%;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.inner-stick {
+    width: 8px;                                 /* 筒內木籤寬度 */
+    height: 60px;                               /* 筒內木籤高度 */
+    background: #e67e22;                        /* 木籤顏色：木頭橘色 */
+    border-radius: 4px;
+}
+
+.drawn-stick-container {
+    width: 40px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.drawn-stick {
+    width: 24px;                                /* 抽出的籤寬度 */
+    height: 170px;                              /* 抽出的籤高度 */
+    border-radius: 6px;                         /* 籤的圓角 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);     /* 籤的陰影 */
+    opacity: 0;                                 /* 預設隱藏 (透明度 0) */
+    transform: translateY(30px);                /* 預設往下偏移 30px */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 彈跳上浮動畫曲線 */
+    border: 2px solid rgba(255,255,255,0.6);    /* 籤的外框 */
+}
+
+/* 當籤被抽中顯示時加上 (.show) */
+.drawn-stick.show {
+    opacity: 1;                                 /* 完全顯現 */
+    transform: translateY(0);                   /* 回到原位 */
+}
+
+.stick-text {
+    writing-mode: vertical-rl;                  /* 文字改為直書（由右至左、由上至下） */
+    color: #000;                                /* 籤上文字預設黑色 */
+    font-weight: bold;                          /* 粗體 */
+    font-size: 0.9rem;                          /* 字體大小 */
+    letter-spacing: 2px;                        /* 字距 */
+}
+
+/* ==========================================
+   10. 彈出視窗 Modal 設定 (Modal Overlay)
+   ========================================== */
+.modal-overlay {
+    position: fixed;                            /* 固定定位覆蓋全螢幕 */
+    top: 0;
+    left: 0;
+    width: 100vw;                               /* 寬度佔滿視窗 */
+    height: 100vh;                              /* 高度佔滿視窗 */
+    background: rgba(0, 0, 0, 0.75);            /* 半透明深色遮罩背景 */
+    backdrop-filter: blur(8px);                 /* 背景毛玻璃模糊特效 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;                              /* 確保層級最高，蓋在所有元素上方 */
+    opacity: 0;                                 /* 預設透明 */
+    pointer-events: none;                       /* 預設隱藏時無法被點擊 */
+    transition: opacity 0.3s ease;              /* 淡入淡出動畫時間 0.3 秒 */
+}
+
+/* 當彈出視窗啟動時 (.active) */
+.modal-overlay.active {
+    opacity: 1;                                 /* 顯示背景 */
+    pointer-events: auto;                       /* 恢復可點擊 */
+}
+
+.modal-card {
+    background: #252139;                        /* 彈出卡片背景色：深紫灰色 */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* 卡片邊框 */
+    border-radius: 20px;                        /* 卡片圓角 */
+    padding: 30px;                              /* 卡片內部間距 */
+    width: 85%;
+    max-width: 380px;                           /* 最大寬度限制 */
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);    /* 卡片立體大陰影 */
+    transform: scale(0.8);                      /* 預設稍微縮小 */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 彈跳放大動畫 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 當視窗啟動時，卡片放大至 100% */
+.modal-overlay.active .modal-card {
+    transform: scale(1);
+}
+
+.modal-ball {
+    width: 70px;                                /* 彈出視窗中的結果球體寬度 */
+    height: 70px;                               /* 彈出視窗中的結果球體高度 */
+    border-radius: 50%;                         /* 圓形 */
+    margin: 15px 0;                             /* 上下外距 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;                          /* 結果字體大小 (如：大吉) */
+    font-weight: bold;
+    color: #000;
+    box-shadow: inset -5px -5px 10px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3); /* 球體3D陰影 */
+    border: 2px solid rgba(255,255,255,0.8);    /* 球體邊框 */
+}
+
+.modal-title {
+    font-size: 1.5rem;                          /* 彈出視窗標題大小 */
+    color: #ffd166;                             /* 標題顏色：金色 */
+    margin-bottom: 10px;
+}
+
+.modal-desc {
+    font-size: 1.05rem;                         /* 說明文字大小 */
+    line-height: 1.5;                           /* 行高 */
+    color: #e2e8f0;                             /* 說明文字顏色：淺灰白 */
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    padding: 10px 25px;                         /* 按鈕內距 */
+    background: #ff6b6b;                        /* 按鈕背景色：粉紅色 */
+    border: none;
+    border-radius: 20px;                        /* 按鈕圓角 */
+    color: #fff;                                /* 文字白色 */
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4); /* 按鈕陰影 */
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    background: #ff5252;                        /* 滑鼠懸停時顏色加深 */
+    transform: scale(1.05);                     /* 輕微放大 */
+}
